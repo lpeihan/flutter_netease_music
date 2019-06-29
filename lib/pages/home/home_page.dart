@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'user_drawer.dart';
+import '../discover/discover.dart';
+
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
 
@@ -19,7 +22,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   _TabItem(
     normal: Image.asset('assets/discover.png'),
     active: Image.asset('assets/discover_active.png'),
-    page: Text('discover')
+    page: Discover()
   ),
   _TabItem(
     normal: Image.asset('assets/video.png'),
@@ -45,25 +48,20 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     });
   }
 
-  List<Widget> buildTabs() {
-    return this.tabs.map((item) {
-      if (tabs.indexOf(item) == this.currentIndex) {
-        return Tab(child: item.active);
-      }
-      return Tab(child: item.normal);
-    }).toList();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0.0,
         title: Container(
-          padding: EdgeInsets.only(left: 20.0, right: 20.0),
+          padding: EdgeInsets.only(left: 30.0, right: 30.0),
           child: TabBar(
             indicatorColor: Colors.transparent,
+            labelPadding: EdgeInsets.all(0.0),
             controller: tabController,
-            tabs: this.buildTabs()
+            tabs: this.tabs.map((item) {
+              return tabs.indexOf(item) == this.currentIndex ? Tab(child: item.active) : Tab(child: item.normal);
+            }).toList()
           ),
         ),
         actions: <Widget>[
@@ -73,6 +71,13 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           )
         ],
       ),
+      body: TabBarView(
+        controller: tabController,
+        children: this.tabs.map((item) {
+          return item.page;
+        }).toList()
+      ),
+      drawer: UserDrawer(),
     );
   }
 }

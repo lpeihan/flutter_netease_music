@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'pages/search/search_page.dart';
-import 'pages/home_page.dart';
+import 'pages/home/home_page.dart';
 
 final routes = {
   '/': (context) => HomePage(),
-  '/search': (context, { arguments }) => SearchPage(arguments: arguments)
+  '/search': (context) => SearchPage()
 };
 
 var onGenerateRoute = (RouteSettings settings) {

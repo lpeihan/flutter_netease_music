@@ -34,11 +34,11 @@ class _DiscoverState extends State<Discover> with SingleTickerProviderStateMixin
           indicatorWeight: 2.0,
           indicatorColor: Colors.white,
           indicatorSize: TabBarIndicatorSize.label,
-          indicatorPadding: EdgeInsets.only(bottom: 10),
+          indicatorPadding: EdgeInsets.only(bottom: 10.0),
           tabs: <Widget>[
-            Tab(child: Text('推荐'),),
-            Tab(child: Text('排行'),),
-            Tab(child: Text('歌手'),),
+            Tab(child: Text('推荐', style: TextStyle(fontSize: 15.0),),),
+            Tab(child: Text('排行', style: TextStyle(fontSize: 15.0),),),
+            Tab(child: Text('歌手', style: TextStyle(fontSize: 15.0),),),
           ],
         )
       ),

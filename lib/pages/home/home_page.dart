@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'user_drawer.dart';
+import '../../components/play_bar.dart';
 import '../discover/discover.dart';
 
 class HomePage extends StatefulWidget {
@@ -78,6 +79,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         }).toList()
       ),
       drawer: UserDrawer(),
+      bottomNavigationBar: BottomAppBar(
+        child: PlayBar(),
+      ),
     );
   }
 }

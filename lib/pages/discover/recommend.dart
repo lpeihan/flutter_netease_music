@@ -18,16 +18,31 @@ class _RecommendState extends State<Recommend> {
     super.initState();
 
     this.getBanners();
+    this.getSongSheet();
   }
 
+  // 获取 banners
   Future getBanners() async {
     try {
       Response res = await Dio().get('http://47.98.144.117:3000/banner');
 
       setState(() {
-        banners = res.data['banners'].map<Banner>((item) => Banner.fromJson(item)).toList();
+        banners = res.data['banners'].map<Banner>(
+          (item) => Banner.fromJson(item))
+          .toList();
       });
     } catch (e) {
+      print(e);
+    }
+  }
+
+  // 获取推荐歌单
+  Future getSongSheet() async {
+    try {
+      Response res = await Dio().get('http://47.98.144.117:3000/personalized');
+
+      print(res);
+    } catch(e) {
       print(e);
     }
   }

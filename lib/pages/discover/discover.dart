@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'recommend.dart';
 
 class Discover extends StatefulWidget {
   Discover({Key key}) : super(key: key);
@@ -27,6 +28,7 @@ class _DiscoverState extends State<Discover> with SingleTickerProviderStateMixin
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0.0,
         title: TabBar(
           controller: tabController,
           indicatorWeight: 2.0,
@@ -34,22 +36,16 @@ class _DiscoverState extends State<Discover> with SingleTickerProviderStateMixin
           indicatorSize: TabBarIndicatorSize.label,
           indicatorPadding: EdgeInsets.only(bottom: 10),
           tabs: <Widget>[
-            Tab(
-              child: Text('推荐'),
-            ),
-            Tab(
-              child: Text('排行'),
-            ),
-            Tab(
-              child: Text('歌手'),
-            )
+            Tab(child: Text('推荐'),),
+            Tab(child: Text('排行'),),
+            Tab(child: Text('歌手'),),
           ],
         )
       ),
         body: TabBarView(
           controller: this.tabController,
           children: <Widget>[
-            Center(child: Icon(Icons.local_florist),),
+            Recommend(),
             Center(child: Icon(Icons.change_history),),
             Center(child: Icon(Icons.directions_bike),)
           ],

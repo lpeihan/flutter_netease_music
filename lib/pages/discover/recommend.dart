@@ -88,19 +88,15 @@ class _RecommendState extends State<Recommend> {
                 margin: EdgeInsets.only(bottom: 8.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50.0),
-                  gradient: LinearGradient(
-                    colors: [
-                      Color(0xfffc6259),
-                      Color(0xfffb2725),
-                    ]
-                  )
+                  gradient: LinearGradient(colors: [Color(0xfffc6259), Color(0xfffb2725),])
                 ),
                 child: item.icon,
               ),
               Text(item.title)
             ],
           );
-      }).toList()
+        }
+      ).toList()
     );
   }
 

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_netease_music/pages/discover/recommend.dart';
+import 'package:flutter_netease_music/pages/discover/recommend_page.dart';
 
-class Discover extends StatefulWidget {
-  Discover({Key key}) : super(key: key);
+class DiscoverPage extends StatefulWidget {
+  DiscoverPage({Key key}) : super(key: key);
 
-  _DiscoverState createState() => _DiscoverState();
+  _DiscoverPageState createState() => _DiscoverPageState();
 }
 
-class _DiscoverState extends State<Discover> with SingleTickerProviderStateMixin {
+class _DiscoverPageState extends State<DiscoverPage> with SingleTickerProviderStateMixin {
   TabController tabController;
 
   @override
@@ -45,7 +45,7 @@ class _DiscoverState extends State<Discover> with SingleTickerProviderStateMixin
       body: TabBarView(
         controller: this.tabController,
         children: <Widget>[
-          Recommend(),
+          RecommendPage(),
           Center(child: Icon(Icons.change_history),),
           Center(child: Icon(Icons.directions_bike),)
         ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_netease_music/components/play_bar.dart';
-import 'package:flutter_netease_music/pages/discover/discover.dart';
+import 'package:flutter_netease_music/pages/discover/discover_page.dart';
 import 'package:flutter_netease_music/pages/home/user_drawer.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   _TabItem(
     normal: Image.asset('assets/discover.png'),
     active: Image.asset('assets/discover_active.png'),
-    page: Discover()
+    page: DiscoverPage()
   ),
   _TabItem(
     normal: Image.asset('assets/video.png'),

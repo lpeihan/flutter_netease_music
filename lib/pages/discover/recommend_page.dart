@@ -4,13 +4,13 @@ import 'dart:async';
 
 import 'package:flutter_swiper/flutter_swiper.dart';
 
-class Recommend extends StatefulWidget {
-  Recommend({Key key}) : super(key: key);
+class RecommendPage extends StatefulWidget {
+  RecommendPage({Key key}) : super(key: key);
 
-  _RecommendState createState() => _RecommendState();
+  _RecommendPageState createState() => _RecommendPageState();
 }
 
-class _RecommendState extends State<Recommend> {
+class _RecommendPageState extends State<RecommendPage> {
   List<Banner> banners = [];
   List<Playlist> playlists = [];
 
@@ -20,6 +20,10 @@ class _RecommendState extends State<Recommend> {
 
     this.getBanners();
     this.getPlaylists();
+  }
+
+  Future _onRefresh() async {
+    return this.getPlaylists();
   }
 
   // 获取 banners
@@ -45,7 +49,6 @@ class _RecommendState extends State<Recommend> {
       setState(() {
         playlists = res.data['result'].map<Playlist>((item) => Playlist.fromJson(item)).toList();
       });
-      print(playlists[0].picUrl);
     } catch(e) {
       print(e);
     }
@@ -121,7 +124,7 @@ class _RecommendState extends State<Recommend> {
 
   _buildPlaylists() {
     return SliverPadding(
-      padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 20.0),
+      padding: EdgeInsets.only(left: 12.0, right: 12.0, bottom: 20.0, top: 5.0),
       sliver: SliverGrid(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
@@ -131,27 +134,34 @@ class _RecommendState extends State<Recommend> {
         ),
         delegate: SliverChildBuilderDelegate(
           (BuildContext context, int index) {
-            return Column(
-              children: <Widget>[
-                Container(
-                  width: 126,
-                  height: 120,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    image: DecorationImage(
-                      image: NetworkImage(playlists[index].picUrl)
-                    )
-                  )
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: 5.0),
-                  child: Text(
-                    playlists[index].name,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+            return InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/playlist', arguments: { 'id': playlists[index].id });
+              },
+              child: Column(
+                children: <Widget>[
+                  AspectRatio(
+                    aspectRatio: 1 / 1,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6.0),
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(playlists[index].picUrl)
+                        )
+                      )
+                    ),
                   ),
-                )
-              ],
+                  Container(
+                    padding: EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      playlists[index].name,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  )
+                ],
+              ),
             );
           },
           childCount: playlists.length,
@@ -162,19 +172,25 @@ class _RecommendState extends State<Recommend> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        SliverList(
-          delegate: SliverChildListDelegate([
-            _buildSwiper(),
-            SizedBox(height: 20.0,),
-            _buildMenus(),
-            SizedBox(height: 5.0),
-            Divider(),
-          ]),
-        ),
-        _buildPlaylists(),
-      ],
+    return RefreshIndicator(
+      onRefresh: _onRefresh,
+      color: Theme.of(context).primaryColor,
+      child: CustomScrollView(
+        physics: BouncingScrollPhysics(),
+        cacheExtent: 2000,
+        slivers: <Widget>[
+          SliverList(
+            delegate: SliverChildListDelegate([
+              _buildSwiper(),
+              SizedBox(height: 20.0,),
+              _buildMenus(),
+              SizedBox(height: 5.0),
+              Divider(),
+            ]),
+          ),
+          _buildPlaylists(),
+        ],
+      ),
     );
   }
 }

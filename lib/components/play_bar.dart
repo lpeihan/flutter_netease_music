@@ -14,12 +14,17 @@ class _PlayBarState extends State<PlayBar> {
       height: 60.0,
       child: Row(
         children: <Widget>[
-          Container(
-            width: 44.0,
-            height: 44.0,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(44.0),
-              image: DecorationImage(image: NetworkImage('https://p2.music.126.net/wpahk9cQCDtdzJPE52EzJQ==/109951163271025942.jpg'), fit: BoxFit.cover)
+          InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, '/player');
+            },
+            child: Container(
+              width: 44.0,
+              height: 44.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(44.0),
+                image: DecorationImage(image: NetworkImage('https://p2.music.126.net/wpahk9cQCDtdzJPE52EzJQ==/109951163271025942.jpg'), fit: BoxFit.cover)
+              ),
             ),
           )
         ],

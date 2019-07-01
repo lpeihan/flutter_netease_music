@@ -12,13 +12,14 @@ class Recommend extends StatefulWidget {
 
 class _RecommendState extends State<Recommend> {
   List<Banner> banners = [];
+  List<Playlist> playlists = [];
 
   @override
   void initState() {
     super.initState();
 
     this.getBanners();
-    this.getSongSheet();
+    this.getPlaylists();
   }
 
   // 获取 banners
@@ -37,11 +38,14 @@ class _RecommendState extends State<Recommend> {
   }
 
   // 获取推荐歌单
-  Future getSongSheet() async {
+  Future getPlaylists() async {
     try {
       Response res = await Dio().get('http://47.98.144.117:3000/personalized');
 
-      print(res);
+      setState(() {
+        playlists = res.data['result'].map<Playlist>((item) => Playlist.fromJson(item)).toList();
+      });
+      print(playlists);
     } catch(e) {
       print(e);
     }
@@ -115,15 +119,28 @@ class _RecommendState extends State<Recommend> {
     );
   }
 
+  _buildPlaylists() {
+    return Expanded(
+      child: GridView.count(
+        crossAxisCount: 3,
+        mainAxisSpacing: 10.0,
+        children: playlists.map((item) {
+          return Image.network(item.picUrl);
+        }).toList(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return Column(
       children: <Widget>[
         _buildSwiper(),
         SizedBox(height: 20.0,),
         _buildMenus(),
         SizedBox(height: 5.0),
-        Divider()
+        Divider(),
+        // _buildPlaylists()
       ],
     );
   }
@@ -150,4 +167,38 @@ class Banner {
     'id': id,
     'imageUrl': imageUrl
   };
+}
+
+class Playlist {
+  int id;
+  int type;
+  String name;
+  String copywriter;
+  String picUrl;
+  var playCount;
+  int trackCount;
+
+  Playlist({this.id, this.type, this.name, this.copywriter, this.picUrl, this.playCount, this.trackCount});
+
+  Playlist.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    type = json['type'];
+    name = json['name'];
+    copywriter = json['copywriter'];
+    picUrl = json['picUrl'];
+    playCount = json['playCount'];
+    trackCount = json['trackCount'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['type'] = this.type;
+    data['name'] = this.name;
+    data['copywriter'] = this.copywriter;
+    data['picUrl'] = this.picUrl;
+    data['playCount'] = this.playCount;
+    data['trackCount'] = this.trackCount;
+    return data;
+  }
 }

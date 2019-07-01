@@ -42,14 +42,14 @@ class _DiscoverState extends State<Discover> with SingleTickerProviderStateMixin
           ],
         )
       ),
-        body: TabBarView(
-          controller: this.tabController,
-          children: <Widget>[
-            Recommend(),
-            Center(child: Icon(Icons.change_history),),
-            Center(child: Icon(Icons.directions_bike),)
-          ],
-        ),
+      body: TabBarView(
+        controller: this.tabController,
+        children: <Widget>[
+          Recommend(),
+          Center(child: Icon(Icons.change_history),),
+          Center(child: Icon(Icons.directions_bike),)
+        ],
+      ),
     );
   }
 }

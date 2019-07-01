@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'routes.dart';
+import 'package:flutter_netease_music/routes.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,7 +14,8 @@ class MyApp extends StatelessWidget {
         // splashColor: Color(0x22000000)
       ),
       initialRoute: '/',
-      onGenerateRoute: onGenerateRoute
+      onGenerateRoute: onGenerateRoute,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

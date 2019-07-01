@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'recommend.dart';
+import 'package:flutter_netease_music/pages/discover/recommend.dart';
 
 class Discover extends StatefulWidget {
   Discover({Key key}) : super(key: key);

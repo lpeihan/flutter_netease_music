@@ -45,7 +45,7 @@ class _RecommendState extends State<Recommend> {
       setState(() {
         playlists = res.data['result'].map<Playlist>((item) => Playlist.fromJson(item)).toList();
       });
-      print(playlists);
+      print(playlists[0].picUrl);
     } catch(e) {
       print(e);
     }
@@ -120,27 +120,60 @@ class _RecommendState extends State<Recommend> {
   }
 
   _buildPlaylists() {
-    return Expanded(
-      child: GridView.count(
-        crossAxisCount: 3,
-        mainAxisSpacing: 10.0,
-        children: playlists.map((item) {
-          return Image.network(item.picUrl);
-        }).toList(),
+    return SliverPadding(
+      padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 20.0),
+      sliver: SliverGrid(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          childAspectRatio: 6 / 9,
+          mainAxisSpacing: 12.0,
+          crossAxisSpacing: 12.0,
+        ),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return Column(
+              children: <Widget>[
+                Container(
+                  width: 126,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    image: DecorationImage(
+                      image: NetworkImage(playlists[index].picUrl)
+                    )
+                  )
+                ),
+                Container(
+                  padding: EdgeInsets.only(top: 5.0),
+                  child: Text(
+                    playlists[index].name,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                )
+              ],
+            );
+          },
+          childCount: playlists.length,
+        ),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        _buildSwiper(),
-        SizedBox(height: 20.0,),
-        _buildMenus(),
-        SizedBox(height: 5.0),
-        Divider(),
-        // _buildPlaylists()
+    return CustomScrollView(
+      slivers: <Widget>[
+        SliverList(
+          delegate: SliverChildListDelegate([
+            _buildSwiper(),
+            SizedBox(height: 20.0,),
+            _buildMenus(),
+            SizedBox(height: 5.0),
+            Divider(),
+          ]),
+        ),
+        _buildPlaylists(),
       ],
     );
   }

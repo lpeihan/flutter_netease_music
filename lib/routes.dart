@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'pages/search/search_page.dart';
-import 'pages/home/home_page.dart';
+import 'package:flutter_netease_music/pages/home/home_page.dart';
+import 'package:flutter_netease_music/pages/search/search_page.dart';
 
 final routes = {
   '/': (context) => HomePage(),

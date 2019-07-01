@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
-import 'user_drawer.dart';
-import '../../components/play_bar.dart';
-import '../discover/discover.dart';
+import 'package:flutter_netease_music/components/play_bar.dart';
+import 'package:flutter_netease_music/pages/discover/discover.dart';
+import 'package:flutter_netease_music/pages/home/user_drawer.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);

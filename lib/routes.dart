@@ -8,7 +8,7 @@ final routes = {
   '/': (context) => HomePage(),
   '/search': (context) => SearchPage(),
   '/playlist': (context, { arguments }) => PlaylistDetailPage(arguments: arguments,),
-  '/player': (context) => Player()
+  '/player': (context, { arguments }) => Player(arguments: arguments,)
 };
 
 var onGenerateRoute = (RouteSettings settings) {

@@ -136,7 +136,12 @@ class _RecommendPageState extends State<RecommendPage> {
           (BuildContext context, int index) {
             return InkWell(
               onTap: () {
-                Navigator.pushNamed(context, '/playlist', arguments: { 'id': playlists[index].id });
+                Navigator.pushNamed(context, '/playlist',
+                  arguments: {
+                    'id': playlists[index].id,
+                    'name': playlists[index].name
+                  }
+                );
               },
               child: Column(
                 children: <Widget>[

@@ -1,3 +1,5 @@
+import 'package:audioplayers/audioplayers.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
@@ -10,6 +12,36 @@ class Player extends StatefulWidget {
 }
 
 class _PlayerState extends State<Player> {
+  String url;
+  AudioPlayer audioPlayer;
+
+  @override
+  void initState() { 
+    super.initState();
+    
+    AudioPlayer.logEnabled = true;
+    audioPlayer = new AudioPlayer();
+    this.getSong();
+  }
+
+  Future getSong() async {
+    Response res = await Dio().get('http://47.98.144.117:3000/song/url?id=${widget.arguments["id"]}');
+
+    setState(() {
+      url = res.data['data'][0]['url'];
+    });
+    print(url);
+    this.play();
+  }
+
+  play() async {
+    int res = await audioPlayer.play(url, isLocal: false);
+
+    if (res == 1) {
+      print('开始播放');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return _Background(

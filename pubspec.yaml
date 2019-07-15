@@ -25,6 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   flutter_swiper: ^1.1.4
   dio: ^2.1.0
+  audioplayers: ^0.13.1
 
 dev_dependencies:
   flutter_test:
